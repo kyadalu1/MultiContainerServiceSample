@@ -1,0 +1,14 @@
+FROM node:18-alpine
+
+WORKDIR /usr/app
+
+COPY ./package.json ./
+
+RUN npm install
+
+COPY ./ ./
+
+CMD ["npm","run","dev"]
+
+# docker build -f Dockerfile.dev -t braveevidence/nodeapp:latest .
+#docker run -p 3000:3000 braveevidence/nodeapp:latest
