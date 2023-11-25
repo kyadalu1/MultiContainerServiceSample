@@ -3,11 +3,11 @@ services:
   postgres:
     image: "postgres:latest"
     environment:
-      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_PASSWORD=postgres_password #you have to add this in recent version of postgres
   nginx:
     restart: always
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./nginx
     ports:
       - "3050:80"
@@ -16,7 +16,7 @@ services:
       - nextapp
   nodeapp:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./nodeapp
     volumes:
       - /app/node_modules #don't try to override this folder
@@ -29,7 +29,7 @@ services:
       - PGPORT=5432
   nextapp:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./nextapp
     volumes:
       - /app/node_modules

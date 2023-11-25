@@ -3,7 +3,11 @@ const Info = require("../models/Info");
 
 const router = express.Router();
 
-router.get("/getRandomNumber", async (req, res) => {
+router.get("/api/value", async (req, res) => {
+  return res.status(200).send({ value: "hello" });
+});
+
+router.get("/api/getRandomNumber", async (req, res) => {
   const randNumber = `${Math.random() * 100}`;
   const info = new Info({ randomNumber: randNumber });
   await info.save();
@@ -11,7 +15,12 @@ router.get("/getRandomNumber", async (req, res) => {
     where: { randomNumber: randNumber },
   });
 
-  return res.status(200).send({ lastInfo });
+  const delayTime = 5000;
+
+  // Introduce a delay using setTimeout
+  setTimeout(() => {
+    return res.status(200).send({ lastInfo });
+  }, delayTime);
 });
 
 module.exports = router;
